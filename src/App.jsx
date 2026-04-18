@@ -64,7 +64,7 @@ const socials = [
   { id: 2, name: 'WhatsApp', url: 'https://wa.me/919848887631', icon: <FaWhatsapp size={24} /> },
   { id: 3, name: 'Snapchat', url: 'https://www.snapchat.com/add/vigneshh.20', icon: <FaSnapchatGhost size={24} /> },
   { id: 4, name: 'Email', url: 'mailto:kattavignesh593@gmail.com', icon: <FaEnvelope size={24} /> },
-  { id: 5, name: 'Instagram', url: 'https://instagram.com/kattavignesh', icon: <FaInstagram size={24} /> },
+  { id: 5, name: 'Instagram', url: 'https://instagram.com/vigneshh.20', icon: <FaInstagram size={24} /> },
   { id: 6, name: 'Personal Portfolio', url: 'https://kattavignesh.vooho.in', icon: <FaGlobe size={24} /> },
 ];
 
