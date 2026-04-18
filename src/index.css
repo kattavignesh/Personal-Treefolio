@@ -1,0 +1,302 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #070707;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app-main {
+  width: 100%;
+  max-width: 480px; /* Constrains the layout to phone-width */
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #070707; /* The inner background must be black */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* Clips the background image natively */
+}
+
+/* For PC Desktop View, we simulate a premium mobile device card */
+@media (min-width: 768px) {
+  body {
+    background-color: #070707; /* Fallback */
+    padding: 50px 20px; /* Gives spacing above and below the card */
+  }
+
+  /* Blurred PC dark backdrop of the original image */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -5%;
+    left: -5%;
+    width: 110vw;
+    height: 110vh;
+    background-image: url('/bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.50); /* Much brighter, much less blurred */
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .app-main {
+    min-height: 800px;
+    border-radius: 32px; /* Smooth, phone-like rounded corners */
+    /* Add a gorgeous outer shadow to lift it off the dark background */
+    box-shadow: 0 25px 80px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+}
+
+/* Background image covering top half */
+.cover-image {
+  position: absolute;
+  top: -40px; /* Moves the element up to physically crop the top boundary */
+  left: 0;
+  width: 100%;
+  height: calc(52vh + 40px); /* Compensate for the negative top */
+  min-height: 460px;
+  background-image: url('/bg.png');
+  background-size: cover;
+  background-position: center 25%; /* Centered horizontally, pushed up vertically */
+  z-index: 0;
+}
+
+/* Gradient to blend image smoothly into black bottom */
+.cover-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(7,7,7,0) 0%, rgba(7,7,7,0.5) 40%, #070707 100%);
+  pointer-events: none;
+}
+
+/* Top right share button */
+.top-action-right {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
+}
+
+.share-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.share-btn:hover {
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Content Container */
+.app-container {
+  width: 100%;
+  max-width: 460px;
+  padding: 0 24px;
+  margin-top: calc(52vh - 90px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-height: 850px) {
+  .app-container {
+    margin-top: calc(420px - 90px);
+  }
+}
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.profile-title {
+  font-family: 'Caveat', cursive;
+  font-size: 32px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 1px;
+  color: #ffffff;
+  /* Shadow to ensure text is perfectly readable over the image */
+  text-shadow: 0px 2px 8px rgba(0,0,0,0.9), 0px 1px 3px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideUp 0.5s ease forwards;
+}
+
+/* Links Section */
+.links-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 60px;
+}
+
+.link-card {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  padding: 18px 24px;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, background-color 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.link-card:hover {
+  transform: scale(1.02);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Small staggered entry animations */
+.link-card {
+  animation: slideUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(15px);
+}
+.link-card:nth-child(1) { animation-delay: 0.1s; }
+.link-card:nth-child(2) { animation-delay: 0.15s; }
+.link-card:nth-child(3) { animation-delay: 0.2s; }
+.link-card:nth-child(4) { animation-delay: 0.25s; }
+
+.link-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box.white-box {
+  background-color: #ffffff;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+}
+
+.link-text {
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.link-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #777;
+}
+
+/* Footer Socials */
+.socials-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 30px;
+  margin-top: -20px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: slideUp 0.5s ease forwards;
+  animation-delay: 0.35s;
+}
+
+.social-icon {
+  color: #999999;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon:hover {
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.1);
+}
+
+.footer-credits {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #888888;
+  margin-top: 10px;
+  padding-bottom: 20px;
+  opacity: 0;
+  animation: slideUp 0.5s ease forwards;
+  animation-delay: 0.45s;
+}
+
+.footer-link {
+  color: #a0a0a0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+.heart {
+  color: #ff3366;
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
